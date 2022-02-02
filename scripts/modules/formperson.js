@@ -40,13 +40,13 @@ const createFormPerson = (n) => {
 
   const inputTicket = createElement("input", {
     className: "field__input",
-    id: "ticket0",
+    id: `ticket${n}`,
     name: "ticket",
     type: "text",
     placeholder: "Номер билета",
     required: true,
-    minLength: "10",
-    maxLength: "10",
+    minLength: 10,
+    maxLength: 10,
   });
 
   fieldTicket.append(labelTicket, inputTicket);
