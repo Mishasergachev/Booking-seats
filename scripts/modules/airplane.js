@@ -29,7 +29,7 @@ const createExit = () => {
 const createBlockSeat = (n, count) => {
   const letters = ["A", "B", "C", "D", "E", "F"];
 
-  const fuselage = createElement("div", {
+  const fuselage = createElement("ol", {
     className: "fuselage",
   });
 
@@ -45,7 +45,7 @@ const createBlockSeat = (n, count) => {
       });
       const wrapperCheck = createElement("label");
 
-      const check = createELement("input", {
+      const check = createElement("input", {
         name: "seat",
         type: "checkbox",
         value: `${i}${letter}`,
@@ -89,8 +89,23 @@ const createAirplane = (title, scheme) => {
 
   return choisesSeat;
 };
-const airplane = (main, data) => {
-  const title = "Выберите места";
+
+const wordFinisher = (pasCount, finisher) => {
+  if (pasCount === 1) {
+    finisher = "то";
+  } else if (pasCount === 2 || 3 || 4) {
+    finisher = "та";
+  } else (pasCount === 5 || 6)
+  {
+    finisher = 'т'; 
+  }
+  console.log(pasCount);
+  console.log(finisher);
+  return finisher;
+};
+
+const airplane = (main, data, pasCount) => {
+  const title = `Выберите ${pasCount} мес${wordFinisher(pasCount)}`;
   const scheme = ["exit", 11, "exit", 1, "exit", 17, "exit"];
 
   main.append(createAirplane(title, scheme));

@@ -45,7 +45,7 @@ const createFirstForm = () => {
   });
 
   form.append(label, input, button);
-
+  console.log(form);
   return form;
 };
 

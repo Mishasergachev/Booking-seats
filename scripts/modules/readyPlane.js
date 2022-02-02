@@ -2,6 +2,7 @@ import airplane from "./airplane.js";
 
 const readyPlane = (forms, main) => {
   const data = [];
+  let pasCount = 0;
   forms.forEach((form) => {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -15,10 +16,12 @@ const readyPlane = (forms, main) => {
       });
       if (forms.length === data.length) {
         forms.forEach((form) => form.remove());
-        airplane(main, data);
+        airplane(main, data, pasCount);
       }
     });
   });
+  pasCount = forms.length;
+  console.log(pasCount);
 };
 
 export default readyPlane;
