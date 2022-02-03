@@ -62,7 +62,8 @@ const createBlockSeat = (n, count) => {
   return fuselage;
 };
 
-const createAirplane = (title, scheme) => {
+const createAirplane = (title, tourData) => {
+  const scheme = tourData.scheme
   const choisesSeat = createElement("form", {
     className: "choises-seat",
   });
@@ -90,25 +91,55 @@ const createAirplane = (title, scheme) => {
   return choisesSeat;
 };
 
-const wordFinisher = (pasCount, finisher) => {
+const wordEnd = (pasCount, end) => {
   if (pasCount === 1) {
-    finisher = "то";
+    end = "то";
   } else if (pasCount === 2 || 3 || 4) {
-    finisher = "та";
+    end = "та";
   } else (pasCount === 5 || 6)
   {
-    finisher = 'т'; 
+    end = 'т'; 
   }
   console.log(pasCount);
-  console.log(finisher);
-  return finisher;
+  console.log(end);
+  return end;
 };
+const checkSeat = (form,data) => {
+form.addEventListener('change',()=>{
+const formData = new FormData(form);
+const checked = [...formData].map(([, value])=> value)
 
-const airplane = (main, data, pasCount) => {
-  const title = `Выберите ${pasCount} мес${wordFinisher(pasCount)}`;
-  const scheme = ["exit", 11, "exit", 1, "exit", 17, "exit"];
+if (checked.length===data.length){
+  [...form].forEach(item => {
+    if (item.checked===false&&item.name==='seat') {
+      item.disabled = true;
+    }
+  })
+}
 
-  main.append(createAirplane(title, scheme));
+});
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const formData = new FormData(form);
+const booking = [...formData].map(([, value])=> value);
+
+for(let i=0;i<data.length; i++){
+  data[i].seat = booking[i];
+}
+console.log(data);
+form.remove();
+
+})
+
+}
+const airplane = (main, data, pasCount,tourData) => {
+  const title = `Выберите ${pasCount} мес${wordEnd(pasCount)}`;
+  
+  const choiseForm = createAirplane(title, tourData);
+
+  checkSeat(choiseForm, data);
+
+  main.append(choiseForm);
 };
 
 export default airplane;
